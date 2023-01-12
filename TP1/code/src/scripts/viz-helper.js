@@ -3,8 +3,8 @@
  *
  */
 export function updateHeader () {
-  document.getElementsByTagName('header')[0].innerHTML = ''
-  document.getElementsByTagName('header')[0].innerHTML = '<h1>TP1</h1><div>Bienvenue au cours INF8808 : Visualisation de données.</div>'
+  d3.select('header').append('h1').text('TP1')
+  d3.select('header').append('div').text('Bienvenue au cours INF8808 : Visualisation de données.')
 }
 
 /**
@@ -40,28 +40,21 @@ export function generateData () {
 }
 
 /**
- * @param {*} g The d3 Selection of the graph's g SVG element
  * @returns {number} The current number of circles displayed in the scatter plot.
  */
-export function getDotCount (g) {
-  if (g) return g.selectAll('.dot').size()
-  return 0
+export function getDotCount () {
+  return d3.selectAll('.dot').size()
 }
 
 /**
  * Updates the text in the info panel below the graph so it displays the current circle count,
  * with the number displayed in bold.
- *
- * @param {*} g The d3 Selection of the graph's g SVG element
- */
-export function updateInfoPanel (g) {
-  document.getElementsByClassName('dot-count')[0].innerHTML = ''
-  document.getElementsByClassName('dot-count')[0].innerHTML = getDotCount(g).toString()
-
-  document.getElementsByClassName('dot-label')[0].innerHTML = ''
-  getDotCount(g) === 1
-    ? document.getElementsByClassName('dot-label')[0].innerHTML = ' point'
-    : document.getElementsByClassName('dot-label')[0].innerHTML = ' points'
+ * */
+export function updateInfoPanel () {
+  d3.select('.dot-count').html(getDotCount())
+  getDotCount() === 1
+    ? d3.select('.dot-label').html(' point')
+    : d3.select('.dot-label').html(' points')
 }
 
 /**
