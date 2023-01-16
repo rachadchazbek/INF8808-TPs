@@ -62,9 +62,33 @@ export function getTopPlayers (data) {
  * @returns {object[]} The nested data set grouping the line count by player and by act
  */
 export function summarizeLines (data) {
-  // TODO : Generate the data structure as defined above
-  console.log(data)
-  return []
+  const lines = []
+  const acts = []
+  const actLines = []
+
+  data.forEach(line => {
+    if (!acts.includes(line.Act)) acts.push(line.Act)
+  })
+
+  acts.forEach(act => {
+    const players = []
+    data.forEach(line => {
+      if (line.Act === act) {
+        if (!players.includes(line.Player)) players.push(line.Player)
+      }
+    })
+
+    players.forEach(player => {
+      let count = 0
+      data.forEach(line => {
+        if (line.Act === act && line.Player === player) count++
+      })
+      actLines.push({ Player: player, Count: count })
+    })
+    lines.push({ Act: act, Players: actLines })
+  })
+
+  return lines
 }
 
 /**
