@@ -124,7 +124,7 @@ export function replaceOthers (data, top) {
     act.Players.forEach((player) => {
       // if the player is in the top 5,
       // add it's count to the corresponding player in thr players array
-      if (!top.includes(player.Player)) Players.find(p => p.Player === player.Player).Count += player.Count
+      if (top.includes(player.Player)) Players.find(p => p.Player === player.Player).Count += player.Count
 
       // if the player is not in the top 5,
       // add it's count to the 'Other' player in the players array
