@@ -1,4 +1,4 @@
-
+/* eslint-disable prefer-const */
 /**
  * Sanitizes the names from the data in the "Player" column.
  *
@@ -104,8 +104,36 @@ export function summarizeLines (data) {
  * @returns {object[]} The dataset with players not in the top 5 summarized as 'Other'
  */
 export function replaceOthers (data, top) {
-  // TODO : For each act, sum the lines uttered by players not in the top 5 for the play
-  // and replace these players in the data structure by a player with name 'Other' and
-  // a line count corresponding to the sum of lines
-  return []
+  const newData = []
+
+  // iterate trough the acts
+  data.forEach(act => {
+    // reset the players array
+    let Players = []
+    let other = { Player: 'Other', Count: 0 }
+
+    // Add the top 5 players to the players array
+    top.forEach(player => {
+      Players.push({ Player: player, Count: 0 })
+    })
+
+    // Add the 'Other' player to the players array
+    Players.push(other)
+
+    // iterate trough the players
+    act.Players.forEach((player) => {
+      // if the player is in the top 5,
+      // add it's count to the corresponding player in thr players array
+      if (!top.includes(player.Player)) Players.find(p => p.Player === player.Player).Count += player.Count
+
+      // if the player is not in the top 5,
+      // add it's count to the 'Other' player in the players array
+      else Players.find(p => p.Player === 'Other').Count += player.Count
+    })
+
+    // add the players array to the act in the new data
+    newData.push({ Act: act.Act, Players: Players })
+  })
+
+  return newData
 }
