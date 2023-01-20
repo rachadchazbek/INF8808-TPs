@@ -17,8 +17,8 @@ export function getContents (d) {
   */
   const toolTip = `<div class="tooltip">
   <h1>${d.key}</h1>
-  <p><b>Player:</b> ${d.value.Player}</p>
-  <p><b>Line Count:</b> ${d.value.Count}</p>
+  <p><b>${d.value.Player}</b></p>
+  <p><b>${d.value.Count} lines</b></p>
   </div>`
   return toolTip
 }
