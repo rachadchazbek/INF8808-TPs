@@ -35,20 +35,7 @@ export function updateYScale (scale, data, height) {
  */
 export function createGroups (data, x) {
   //  Create the groups
-  const graph = d3.select('#graph-g')
-  graph.selectAll('g')
-    .data(data)
-    .enter()
-    .append('g')
-    .attr('transform', d => `translate(${x(d.Act)}, 0)`)
-    .append('g')
-    .attr('transform', d => `translate(${x(d.Act)}, 1)`)
-    .append('g')
-    .attr('transform', d => `translate(${x(d.Act)}, 2)`)
-    .append('g')
-    .attr('transform', d => `translate(${x(d.Act)}, 3)`)
-    .append('g')
-    .attr('transform', d => `translate(${x(d.Act)}, 4)`)
+  d3.select('#graph-g')
 }
 
 /**
@@ -60,20 +47,8 @@ export function createGroups (data, x) {
  * @param {number} height The height of the graph
  * @param {*} color The color scale for the bars
  * @param {*} tip The tooltip to show when each bar is hovered and hide when it's not
- * @param data
  */
-export function drawBars (y, xSubgroup, players, height, color, tip, data) {
+export function drawBars (y, xSubgroup, players, height, color, tip) {
   // TODO : Draw the bar
   d3.select('#graph-g')
-    .selectAll('g')
-    .data(data.map(data => players.map(player => ({ player, value: data.Players[player] }))))
-    .enter()
-    .append('rect')
-    .attr('x', d => xSubgroup(d.Player))
-    .attr('y', d => y(d.Count))
-    .attr('width', xSubgroup.bandwidth())
-    .attr('height', d => height - y(d.Count))
-    .attr('fill', d => color(d.Player))
-    .on('mouseover', tip.show)
-    .on('mouseout', tip.hide)
 }
