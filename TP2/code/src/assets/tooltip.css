@@ -61,3 +61,9 @@ Credits : https://rawgit.com/Caged/d3-tip/master/examples/example-styles.css
     top: 50%;
     left: 100%;
   }
+
+  .tooltip {
+    font-family: 'Grenze Gotisch', cursive;
+    font-size: 24px;
+    font-weight: normal;
+  }

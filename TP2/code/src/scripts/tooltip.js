@@ -15,5 +15,10 @@ export function getContents (d) {
       + A bold label for the player's line count
         followed by the number of lines
   */
-  return ''
+  const toolTip = `<div class="tooltip">
+  <h1>${d.key}</h1>
+  <p><b>Player:</b> ${d.value.Player}</p>
+  <p><b>Line Count:</b> ${d.value.Count}</p>
+  </div>`
+  return toolTip
 }
