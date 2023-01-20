@@ -7,7 +7,10 @@
  * @param {number} width The width of the graph
  */
 export function updateGroupXScale (scale, data, width) {
-  // TODO : Set the domain and range of the groups' x scale
+  // Set the domain and range of the graph's x scale
+  scale
+    .domain(data.map(d => d.Act))
+    .range([0, width])
 }
 
 /**
@@ -18,7 +21,10 @@ export function updateGroupXScale (scale, data, width) {
  * @param {number} height The height of the graph
  */
 export function updateYScale (scale, data, height) {
-  // TODO : Set the domain and range of the graph's y scale
+  // Set the domain and range of the graph's y scale
+  scale
+    .domain([0, d3.max(data, d => d3.max(d.Players, d => d.Count))])
+    .range([height, 0])
 }
 
 /**
