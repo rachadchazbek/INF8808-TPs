@@ -10,9 +10,16 @@
 export function cleanNames (data) {
   data.map(line => {
     const start = line.Player.substring(0, 1).toUpperCase()
-    const end = line.Player.substring(1).toLowerCase()
-
-    line.Player = start + end
+    const secondWordIndex = line.Player.indexOf(' ') + 1
+    if (secondWordIndex !== 0) {
+      const endFirstWord = line.Player.substring(1, secondWordIndex).toLowerCase()
+      const startSecondWord = line.Player.substring(secondWordIndex, secondWordIndex + 1).toUpperCase()
+      const endSecondWord = line.Player.substring(secondWordIndex + 1).toLowerCase()
+      line.Player = start + endFirstWord + startSecondWord + endSecondWord
+    } else {
+      const end = line.Player.substring(1).toLowerCase()
+      line.Player = start + end
+    }
   })
 
   return data
@@ -65,33 +72,30 @@ export function getTopPlayers (data) {
  * @returns {object[]} The nested data set grouping the line count by player and by act
  */
 export function summarizeLines (data) {
-  const lines = []
+  const newData = []
   const acts = []
-  const actLines = []
 
   data.forEach(line => {
-    if (!acts.includes(line.Act)) acts.push(line.Act)
-  })
+    if (!acts.includes(line.Act)) {
+      newData.push({ Act: line.Act, Players: [] })
+      acts.push(line.Act)
+    }
 
-  acts.forEach(act => {
-    const players = []
-    data.forEach(line => {
-      if (line.Act === act) {
-        if (!players.includes(line.Player)) players.push(line.Player)
+    newData.forEach(actLines => {
+      if (actLines.Act === line.Act) {
+        let playerExists = false
+        actLines.Players.forEach(playerLines => {
+          if (playerLines.Player === line.Player) {
+            playerLines.Count++
+            playerExists = true
+          }
+        })
+        if (!playerExists) actLines.Players.push({ Player: line.Player, Count: 1 })
       }
     })
-
-    players.forEach(player => {
-      let count = 0
-      data.forEach(line => {
-        if (line.Act === act && line.Player === player) count++
-      })
-      actLines.push({ Player: player, Count: count })
-    })
-    lines.push({ Act: act, Players: actLines })
   })
 
-  return lines
+  return newData
 }
 
 /**
