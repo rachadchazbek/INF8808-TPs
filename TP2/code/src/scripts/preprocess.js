@@ -74,7 +74,6 @@ export function getTopPlayers (data) {
 export function summarizeLines (data) {
   const newData = []
   const acts = []
-
   data.forEach(line => {
     if (!acts.includes(line.Act)) {
       newData.push({ Act: line.Act, Players: [] })

@@ -31,7 +31,7 @@ import d3Tip from 'd3-tip'
   const xSubgroupScale = d3.scaleBand().padding([0.015])
   const yScale = d3.scaleLinear()
 
-  const tip = d3Tip().attr('class', 'd3-tip').html(function (d) { return tooltip.getContents(d) })
+  const tip = d3Tip().attr('class', 'd3-tip').html(function (mouseEvent, data) { return tooltip.getContents(mouseEvent, data) })
   d3.select('.main-svg').call(tip)
 
   d3.csv('./romeo_and_juliet.csv').then(function (data) {

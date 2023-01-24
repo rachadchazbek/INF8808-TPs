@@ -4,7 +4,7 @@
  * @param {object} d The data associated to the hovered element
  * @returns {string} The tooltip contents
  */
-export function getContents (d) {
+export function getContents (mouseEvent, data) {
   /* TODO : Define and return the tooltip contents including :
       + A title stating the hovered element's group, with:
         - Font family: Grenze Gotish
@@ -16,9 +16,8 @@ export function getContents (d) {
         followed by the number of lines
   */
   const toolTip = `<div class="tooltip">
-  <h1>${d.key}</h1>
-  <p><b>${d.value.Player}</b></p>
-  <p><b>${d.value.Count} lines</b></p>
+  <h1>${data.Player}</h1>
+  <p><b>${data.Count} lines</b></p>
   </div>`
   return toolTip
 }

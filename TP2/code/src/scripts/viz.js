@@ -35,7 +35,15 @@ export function updateYScale (scale, data, height) {
  */
 export function createGroups (data, x) {
   //  Create the groups
-  d3.select('#graph-g')
+
+  data.forEach(function (d) {
+    d3.select('#graph-g').append('svg')
+      .data([d])
+      .attr('id', 'subgroup' + d.Act)
+      .attr('class', 'subgroup')
+      .attr('x', x(d.Act))
+      .attr('y', 0)
+  })
 }
 
 /**
@@ -49,6 +57,20 @@ export function createGroups (data, x) {
  * @param {*} tip The tooltip to show when each bar is hovered and hide when it's not
  */
 export function drawBars (y, xSubgroup, players, height, color, tip) {
-  // TODO : Draw the bar
-  d3.select('#graph-g')
+  const data = d3.select('#graph-g').selectAll('.subgroup').data()
+  const max = d3.max(data, d => d3.max(d.Players, d => d.Count))
+
+  data.forEach(function (actLines) {
+    d3.select('#graph-g').select('#subgroup' + actLines.Act).selectAll('rect')
+      .data(actLines.Players)
+      .enter().append('rect')
+      .attr('class', 'bar')
+      .attr('width', xSubgroup.bandwidth())
+      .attr('height', function (d) { return y(max - d.Count) })
+      .attr('fill', function (d) { return color(d.Player) })
+      .attr('x', function (d, i) { return (i * xSubgroup.bandwidth()) })
+      .attr('y', function (d) { return height - y(max - d.Count) })
+      .on('mouseover', function (d, data) { tip.show(d, data) })
+      .on('mouseeout', tip.hide)
+  })
 }
