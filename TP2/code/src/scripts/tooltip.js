@@ -4,7 +4,7 @@
  * @param {object} d The data associated to the hovered element
  * @returns {string} The tooltip contents
  */
-export function getContents (mouseEvent, data) {
+export function getContents (data) {
   /* TODO : Define and return the tooltip contents including :
       + A title stating the hovered element's group, with:
         - Font family: Grenze Gotish

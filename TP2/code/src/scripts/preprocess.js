@@ -133,6 +133,8 @@ export function replaceOthers (data, top) {
       // add it's count to the 'Other' player in the players array
       else Players.find(p => p.Player === 'Other').Count += player.Count
     })
+    // Sort the players in alphabetical order
+    Players.sort((a, b) => a.Player.localeCompare(b.Player))
 
     // add the players array to the act in the new data
     newData.push({ Act: act.Act, Players: Players })
