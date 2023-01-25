@@ -111,12 +111,14 @@ button:hover, button:active {
     font-size: 15px;
 }
 
-#tooltip-title {
-    font-family: 'Grenze Gotisch';
+.tooltip-title {
+    font-family: 'Grenze Gotisch', 'serif';
     font-weight: normal;
     font-size: 24px;
+    margin: 0;
 }
 
 .tooltip-value {
     font-weight: normal;
+    margin-bottom: 0;
 }

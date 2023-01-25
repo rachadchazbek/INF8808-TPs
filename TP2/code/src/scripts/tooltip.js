@@ -2,6 +2,7 @@
  * Defines the contents of the tooltip.
  *
  * @param {object} d The data associated to the hovered element
+ * @param data
  * @returns {string} The tooltip contents
  */
 export function getContents (data) {
@@ -15,9 +16,9 @@ export function getContents (data) {
       + A bold label for the player's line count
         followed by the number of lines
   */
-  const toolTip = `<div class="tooltip">
-  <h1>${data.Player}</h1>
-  <p><b>${data.Count} lines</b></p>
+  const toolTip = `<div">
+  <p class="tooltip-title">${data.Player}</p>
+  <p class="tooltip-value"><b>${data.Count} lines</b></p>
   </div>`
   return toolTip
 }
