@@ -11,13 +11,16 @@ export function cleanNames (data) {
   data.map(line => {
     const start = line.Player.substring(0, 1).toUpperCase()
     const secondWordIndex = line.Player.indexOf(' ') + 1
+
     if (secondWordIndex !== 0) {
       const endFirstWord = line.Player.substring(1, secondWordIndex).toLowerCase()
       const startSecondWord = line.Player.substring(secondWordIndex, secondWordIndex + 1).toUpperCase()
       const endSecondWord = line.Player.substring(secondWordIndex + 1).toLowerCase()
+
       line.Player = start + endFirstWord + startSecondWord + endSecondWord
     } else {
       const end = line.Player.substring(1).toLowerCase()
+
       line.Player = start + end
     }
   })
@@ -34,6 +37,7 @@ export function cleanNames (data) {
 export function getTopPlayers (data) {
   const map = new Map()
   const names = []
+
   data.forEach(line => {
     if (map.has(line.Player)) map.set(line.Player, (map.get(line.Player) + 1))
     else map.set(line.Player, 1)
@@ -41,6 +45,7 @@ export function getTopPlayers (data) {
 
   const sortedMap = new Map([...map.entries()].sort((a, b) => b[1] - a[1]))
   const iterator = sortedMap.entries()
+
   for (var i = 0; i < 5; i++) {
     names[i] = iterator.next().value[0]
   }
@@ -74,6 +79,7 @@ export function getTopPlayers (data) {
 export function summarizeLines (data) {
   const newData = []
   const acts = []
+
   data.forEach(line => {
     if (!acts.includes(line.Act)) {
       newData.push({ Act: line.Act, Players: [] })
