@@ -71,6 +71,6 @@ export function drawBars (y, xSubgroup, players, height, color, tip) {
       .attr('x', function (d, i) { return (i * xSubgroup.bandwidth()) })
       .attr('y', function (d) { return height - y(max - d.Count) })
       .on('mouseover', function (mouseEvent, data) { tip.show(data, this) })
-      .on('mouseeout', tip.hide)
+      .on('mouseout', tip.hide)
   })
 }
