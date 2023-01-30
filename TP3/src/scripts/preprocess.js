@@ -6,7 +6,8 @@ import { range } from './util.js'
  * @returns {string[]} The names of the neighorhoods in the data set
  */
 export function getNeighborhoodNames (data) {
-  return new Set(data.map(d => d.Arrond_Nom))
+  const neighborhoods = new Set(data.map(d => d.Arrond_Nom))
+  return Array.from(neighborhoods)
 }
 
 /**
