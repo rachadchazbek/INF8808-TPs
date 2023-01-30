@@ -1,3 +1,4 @@
+import { range } from './util.js'
 /**
  * Gets the names of the neighborhoods.
  *
@@ -18,7 +19,8 @@ export function getNeighborhoodNames (data) {
  */
 export function filterYears (data, start, end) {
   // TODO : Filter the data by years
-  return []
+  const years = range(start, end)
+  return data.filter(d => years.includes(d.Date_Plantation.getFullYear()))
 }
 
 /**
