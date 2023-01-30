@@ -64,5 +64,24 @@ export function summarizeYearlyCounts (data) {
  */
 export function fillMissingData (data, neighborhoods, start, end, range) {
   // TODO : Find missing data and fill with 0
-  return []
+  const years = range(start, end)
+  const result = []
+  for (const neighborhood of neighborhoods) {
+    for (const year of years) {
+      const found = data.find(d => d.Arrond_Nom === neighborhood && d.Plantation_Year === year)
+      if (found) {
+        result.push(found)
+      } else {
+        result.push({
+          Arrond_Nom: neighborhood,
+          Plantation_Year: year,
+          Comptes: 0
+        })
+      }
+    }
+  }
+
+  console.log(result)
+
+  return result
 }
