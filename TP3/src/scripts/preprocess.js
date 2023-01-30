@@ -42,7 +42,7 @@ export function summarizeYearlyCounts (data) {
       result.push({
         Arrond_Nom: neighborhood,
         Plantation_Year: year,
-        Counts: count
+        Comptes: count
       })
     }
   }
