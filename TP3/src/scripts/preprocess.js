@@ -5,8 +5,7 @@
  * @returns {string[]} The names of the neighorhoods in the data set
  */
 export function getNeighborhoodNames (data) {
-  // TODO: Return the neihborhood names
-  return []
+  return new Set(data.map(d => d.Arrond_Nom))
 }
 
 /**
