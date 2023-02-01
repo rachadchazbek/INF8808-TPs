@@ -7,6 +7,7 @@
  */
 export function setColorScaleDomain (colorScale, data) {
   // TODO : Set domain of color scale
+  colorScale.domain([d3.min(data, d => d.Comptes), d3.max(data, d => d.Comptes)])
 }
 
 /**
@@ -16,6 +17,11 @@ export function setColorScaleDomain (colorScale, data) {
  */
 export function appendRects (data) {
   // TODO : Append SVG rect elements
+  d3.select('svg')
+    .data(data)
+    .enter()
+    .append('g')
+    .append('rect')
 }
 
 /**
@@ -28,6 +34,8 @@ export function appendRects (data) {
  */
 export function updateXScale (xScale, data, width, range) {
   // TODO : Update X scale
+  xScale.domain([d3.min(data, d => d.Comptes), d3.max(data, d => d.Comptes)]).range(range(0, width))
+  // xScale.domain().range(range(0, width))
 }
 
 /**
@@ -40,6 +48,7 @@ export function updateXScale (xScale, data, width, range) {
 export function updateYScale (yScale, neighborhoodNames, height) {
   // TODO : Update Y scale
   // Make sure to sort the neighborhood names alphabetically
+  yScale.domain(neighborhoodNames.sort()).range([50, height])
 }
 
 /**
@@ -49,6 +58,10 @@ export function updateYScale (yScale, neighborhoodNames, height) {
  */
 export function drawXAxis (xScale) {
   // TODO : Draw X axis
+  d3.select('svg')
+    .append('g')
+    .attr('transform', 'translate(0, 0)')
+    .call(d3.axisTop(xScale))
 }
 
 /**
@@ -59,6 +72,10 @@ export function drawXAxis (xScale) {
  */
 export function drawYAxis (yScale, width) {
   // TODO : Draw Y axis
+  d3.select('svg')
+    .append('g')
+    .attr('transform', 'translate(' + width + ', 0)')
+    .call(d3.axisRight(yScale))
 }
 
 /**
@@ -66,6 +83,7 @@ export function drawYAxis (yScale, width) {
  */
 export function rotateYTicks () {
   // TODO : Rotate Y ticks.
+  d3.selectAll('.tick text').attr('transform', 'rotate(-30)')
 }
 
 /**
@@ -78,4 +96,9 @@ export function rotateYTicks () {
  */
 export function updateRects (xScale, yScale, colorScale) {
   // TODO : Set position, size and fill of rectangles according to bound data
+  d3.selectAll('rect')
+    .enter()
+    .attr('x', data => xScale(data.Comptes))
+    .attr('y', data => yScale(data.Arrond_Nom))
+    .attr('fill', data => colorScale(data.Comptes))
 }

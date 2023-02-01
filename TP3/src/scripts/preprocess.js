@@ -82,7 +82,5 @@ export function fillMissingData (data, neighborhoods, start, end, range) {
     }
   }
 
-  console.log(result)
-
   return result
 }
