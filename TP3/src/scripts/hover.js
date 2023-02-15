@@ -14,6 +14,15 @@
  */
 export function setRectHandler (xScale, yScale, rectSelected, rectUnselected, selectTicks, unselectTicks) {
   // TODO : Select the squares and set their event handlers
+  d3.selectAll('.tile')
+    .on('mouseover', function (mouseEvent, data) {
+      rectSelected(this, xScale, yScale)
+      selectTicks(data.Arrond_Nom, data.Plantation_Year)
+    })
+    .on('mouseout', function () {
+      rectUnselected(this)
+      unselectTicks()
+    })
 }
 
 /**
@@ -31,6 +40,18 @@ export function rectSelected (element, xScale, yScale) {
   // TODO : Display the number of trees on the selected element
   // Make sure the nimber is centered. If there are 1000 or more
   // trees, display the text in white so it contrasts with the background.
+  d3.select(element.parentNode).append('text').text((d) => d.Comptes)
+    .attr('x', data => xScale(data.Plantation_Year))
+    .attr('y', data => yScale(data.Arrond_Nom))
+    .attr('width', xScale.bandwidth())
+    .attr('height', yScale.bandwidth())
+    .attr('transform', 'translate(' + element.attributes.width.value * 0.5 + ', ' + element.attributes.height.value * 3 / 4 + ')')
+    .attr('pointer-events', 'none')
+    .attr('text-anchor', 'middle')
+    .attr('fill', (d) => {
+      if (d.Comptes > 1000) return 'white'
+      else return 'black'
+    })
 }
 
 /**
@@ -44,6 +65,7 @@ export function rectSelected (element, xScale, yScale) {
  */
 export function rectUnselected (element) {
   // TODO : Unselect the element
+  d3.select(element.parentNode).select('text').remove()
 }
 
 /**
@@ -54,11 +76,14 @@ export function rectUnselected (element) {
  */
 export function selectTicks (name, year) {
   // TODO : Make the ticks bold
+  d3.select('.xaxis').selectAll('.tick text').filter((d) => d === year).attr('font-weight', 'bold')
+  d3.select('.yaxis').selectAll('.tick text').filter((d) => d === name).attr('font-weight', 'bold')
 }
 
 /**
  * Returns the font weight of all ticks to normal.
  */
 export function unselectTicks () {
-  // TODO : Unselect the ticks
+  d3.select('.xaxis').selectAll('.tick text').attr('font-weight', 'normal')
+  d3.select('.yaxis').selectAll('.tick text').attr('font-weight', 'normal')
 }

@@ -40,7 +40,7 @@ export function initLegendAxis () {
   const svg = d3.select('.heatmap-svg')
   svg
     .append('g')
-    .attr('class', 'legend axis')
+    .attr('class', 'legend-axis')
 }
 
 /**
@@ -61,4 +61,10 @@ export function draw (x, y, height, width, fill, colorScale) {
     .attr('height', height)
     .attr('width', width)
     .attr('fill', fill)
+
+  colorScale.range([height, 0])
+  d3.select('.legend-axis')
+    .attr('transform', 'translate(' + x + ', ' + y + ')')
+    .call(d3.axisLeft(colorScale).ticks(7))
+    .select('.domain').remove()
 }
