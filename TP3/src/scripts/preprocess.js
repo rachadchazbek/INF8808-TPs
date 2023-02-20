@@ -19,7 +19,6 @@ export function getNeighborhoodNames (data) {
  * @returns {object[]} The filtered data
  */
 export function filterYears (data, start, end) {
-  // TODO : Filter the data by years
   const years = range(start, end)
   return data.filter(d => years.includes(d.Date_Plantation.getFullYear()))
 }
@@ -32,7 +31,6 @@ export function filterYears (data, start, end) {
  * the name of the neighborhood, the year and the number of trees that were planted
  */
 export function summarizeYearlyCounts (data) {
-  // TODO : Summarize the data
   const result = []
   const neighborhoods = new Set(data.map(d => d.Arrond_Nom))
   const years = new Set(data.map(d => d.Date_Plantation.getFullYear()))
@@ -64,7 +62,6 @@ export function summarizeYearlyCounts (data) {
  * where the values for 'Counts' is 0
  */
 export function fillMissingData (data, neighborhoods, start, end, range) {
-  // TODO : Find missing data and fill with 0
   const years = range(start, end)
   const result = []
   for (const neighborhood of neighborhoods) {

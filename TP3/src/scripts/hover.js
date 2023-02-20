@@ -13,7 +13,6 @@
  * @param {Function} unselectTicks The function to call to remove "selected" mode from the ticks
  */
 export function setRectHandler (xScale, yScale, rectSelected, rectUnselected, selectTicks, unselectTicks) {
-  // TODO : Select the squares and set their event handlers
   d3.selectAll('.tile')
     .on('mouseover', function (mouseEvent, data) {
       rectSelected(this, xScale, yScale)
@@ -37,9 +36,6 @@ export function setRectHandler (xScale, yScale, rectSelected, rectUnselected, se
  * @param {*} yScale The yScale to be used when placing the text in the square
  */
 export function rectSelected (element, xScale, yScale) {
-  // TODO : Display the number of trees on the selected element
-  // Make sure the nimber is centered. If there are 1000 or more
-  // trees, display the text in white so it contrasts with the background.
   d3.select(element.parentNode).append('text').text((d) => d.Comptes)
     .attr('x', data => xScale(data.Plantation_Year))
     .attr('y', data => yScale(data.Arrond_Nom))
@@ -64,7 +60,6 @@ export function rectSelected (element, xScale, yScale) {
  * @param {*} element The selection of rectangles in "selected" state
  */
 export function rectUnselected (element) {
-  // TODO : Unselect the element
   d3.select(element.parentNode).select('text').remove()
 }
 
@@ -75,7 +70,6 @@ export function rectUnselected (element) {
  * @param {number} year The year associated with the tick text to make bold
  */
 export function selectTicks (name, year) {
-  // TODO : Make the ticks bold
   d3.select('.xaxis').selectAll('.tick text').filter((d) => d === year).attr('font-weight', 'bold')
   d3.select('.yaxis').selectAll('.tick text').filter((d) => d === name).attr('font-weight', 'bold')
 }
