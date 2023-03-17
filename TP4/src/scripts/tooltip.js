@@ -8,5 +8,6 @@
  */
 export function getContents (d) {
   // TODO : Generate tooltip contents
-  return ''
+  console.log(d)
+  return `<p>Country: ${d.Country}</p> <p>Population: ${d.Population}</p> <p>GDP: ${d.GDP}</p> <p>CO2: ${d.CO2}</p>`
 }
