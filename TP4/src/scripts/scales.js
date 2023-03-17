@@ -9,7 +9,7 @@
  * @returns {*} The linear scale used to determine the radius
  */
 export function setRadiusScale (data) {
-  data = Object.values(data).flatMap(year => year)
+  data = Object.values(data).flatMap(country => country)
   return d3.scaleLinear().domain([d3.min(data, d => d.Population), d3.max(data, d => d.Population)]).range([5, 20])
 }
 
@@ -24,7 +24,7 @@ export function setRadiusScale (data) {
  * @returns {*} The ordinal scale used to determine the color
  */
 export function setColorScale (data) {
-  data = Object.values(data).flatMap(year => year)
+  data = Object.values(data).flatMap(country => country).sort((a, b) => a.Continent.localeCompare(b.Continent))
   return d3.scaleOrdinal().domain(data.map(d => d.Continent)).range(d3.schemeSet1)
 }
 
@@ -36,7 +36,7 @@ export function setColorScale (data) {
  * @returns {*} The linear scale in X
  */
 export function setXScale (width, data) {
-  data = Object.values(data).flatMap(year => year)
+  data = Object.values(data).flatMap(country => country)
   return d3.scaleLog().domain([d3.min(data, d => d.GDP), d3.max(data, d => d.GDP)]).range([0, width])
 }
 
@@ -48,7 +48,6 @@ export function setXScale (width, data) {
  * @returns {*} The linear scale in Y
  */
 export function setYScale (height, data) {
-  data = Object.values(data).flatMap(year => year)
-  console.log(data)
+  data = Object.values(data).flatMap(country => country)
   return d3.scaleLog().domain([d3.min(data, d => d.CO2), d3.max(data, d => d.CO2)]).range([height, 0])
 }
