@@ -42,12 +42,11 @@ export function drawCircles (data, rScale, colorScale) {
  * @param {*} tip The tooltip
  */
 export function setCircleHoverHandler (tip) {
-  // the tooltip should be above the circle
   d3.selectAll('.circle')
     .on('mouseover', function (_event, d) {
       d3.select(this)
         .attr('fill-opacity', 1)
-      tip.show(d)
+      tip.show(d, this)
     }
     )
     .on('mouseout', function () {
