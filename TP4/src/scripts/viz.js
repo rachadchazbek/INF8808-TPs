@@ -23,7 +23,7 @@ export function positionLabels (g, width, height) {
  * @param {*} colorScale The scale for the circles' color
  */
 export function drawCircles (data, rScale, colorScale) {
-  d3.select('#bubble-chart')
+  d3.select('#graph-g')
     .selectAll('.circle')
     .data(data)
     .enter()
@@ -46,7 +46,8 @@ export function setCircleHoverHandler (tip) {
     .on('mouseover', function () {
       d3.select(this)
         .attr('fill-opacity', 1)
-      tip.show()
+      const data = d3.select(this).data()[0]
+      tip.show(data)
     }
     )
     .on('mouseout', function () {
