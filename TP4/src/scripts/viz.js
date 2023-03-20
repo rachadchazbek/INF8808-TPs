@@ -6,13 +6,15 @@
  * @param {number} height The height of the graph
  */
 export function positionLabels (g, width, height) {
+  const OFFSET = 50
+
   g.select('.x.axis-text')
     .attr('x', width / 2)
-    .attr('y', height + 50)
+    .attr('y', height + OFFSET)
 
   g.select('.y.axis-text')
     .attr('y', height / 2)
-    .attr('x', -50)
+    .attr('x', -OFFSET)
 }
 
 /**
@@ -40,14 +42,12 @@ export function drawCircles (data, rScale, colorScale) {
  * @param {*} tip The tooltip
  */
 export function setCircleHoverHandler (tip) {
-  // TODO : Set hover handler. The tooltip shows on
-  // hover and the opacity goes up to 100% (from 70%)
+  // the tooltip should be above the circle
   d3.selectAll('.circle')
-    .on('mouseover', function () {
+    .on('mouseover', function (_event, d) {
       d3.select(this)
         .attr('fill-opacity', 1)
-      const data = d3.select(this).data()[0]
-      tip.show(data)
+      tip.show(d)
     }
     )
     .on('mouseout', function () {
@@ -67,8 +67,6 @@ export function setCircleHoverHandler (tip) {
  * @param {number} transitionDuration The duration of the transition
  */
 export function moveCircles (xScale, yScale, transitionDuration) {
-  // TODO : Set up the transition and place the circle centers
-  // in x and y according to their GDP and CO2 respectively
   d3.selectAll('.circle')
     .transition()
     .duration(transitionDuration)

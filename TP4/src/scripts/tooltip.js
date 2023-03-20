@@ -7,7 +7,11 @@
  * @returns {string} The tooltip contents
  */
 export function getContents (d) {
-  // TODO : Generate tooltip contents
-  console.log(d)
-  return `<p>Country: ${d.Country}</p> <p>Population: ${d.Population}</p> <p>GDP: ${d.GDP}</p> <p>CO2: ${d.CO2}</p>`
+  d = { ...d, GDP: d.GDP.toFixed(2), CO2: d.CO2.toFixed(2) }
+
+  return (
+    '<strong>Country :</strong> <span class="tooltip-value">' + d['Country Name'] + '</span><br>' +
+    '<strong>Population :</strong> <span class="tooltip-value">' + d.Population + '</span><br>' +
+    '<strong>GDP :</strong> <span class="tooltip-value">' + d.GDP + ' $ (USD)</span><br>' +
+    '<strong>CO2 emissions :</strong> <span class="tooltip-value">' + d.CO2 + ' metric tonnes</span><br>')
 }
