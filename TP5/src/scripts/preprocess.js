@@ -1,3 +1,5 @@
+const rewind = require('@turf/rewind').default
+
 const TITLES = {
   '1. Noyau villageois': 'Noyau villageois',
   '2. Rue commerciale de quartier, d’ambiance ou de destination': 'Rue commerciale de quartier, d’ambiance ou de destination',
@@ -39,9 +41,11 @@ export function simplifyDisplayTitles (data) {
 /**
  * Reverses the coordinates in the GeoJson data using turf's rewind function.
  * See here : https://turfjs.org/docs/#rewind
+ *
  * @param {*} data The data to be displayed
  * @returns {*} The GeoJson data with reversed coordinates.
  */
- export function reverseGeoJsonCoordinates (data) {
-  // TODO : Rewind the GeoJso data.
+export function reverseGeoJsonCoordinates (data) {
+  // Test if the coordinates are already reversed
+  return rewind(data, { reverse: true })
 }
