@@ -35,6 +35,7 @@ export function convertCoordinates (data, projection) {
 export function simplifyDisplayTitles (data) {
   data.features.forEach((feature) => {
     feature.properties.TYPE_SITE_INTERVENTION = TITLES[feature.properties.TYPE_SITE_INTERVENTION]
+    console.log(feature.properties.TYPE_SITE_INTERVENTION)
   })
 }
 

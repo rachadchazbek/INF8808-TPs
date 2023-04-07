@@ -5,9 +5,14 @@
  * @param {object[]} data The data to be displayed
  */
 export function colorDomain (color, data) {
+  const types = []
+
   data.features.forEach((feature) => {
-    color.domain(feature.properties.TYPE_SITE_INTERVENTION)
+    if (!types.includes(feature.properties.TYPE_SITE_INTERVENTION)) {
+      types.push(feature.properties.TYPE_SITE_INTERVENTION)
+    }
   })
+  color.domain(types)
 }
 
 /**
@@ -18,17 +23,20 @@ export function colorDomain (color, data) {
  * @param {Function} showMapLabel The function to call when a neighborhood is hovered
  */
 export function mapBackground (data, path, showMapLabel) {
-  d3.selectAll('#map-g')
+  d3.select('#map-g').selectAll('.region')
     .data(data.features)
-    .enter()
+    .join('g')
+    .attr('class', 'region')
     .append('path')
     .attr('d', path)
     .attr('fill', '#ccc')
     .attr('stroke', '#fff')
     .attr('stroke-width', 1)
-    .on('mouseover', showMapLabel)
-    .on('mouseout', () => {
-      d3.select('map-g').style('visibility', 'hidden')
+    .on('mouseover', function (mouseEvent, d) {
+      showMapLabel(d, path)
+    })
+    .on('mouseout', function () {
+      d3.select('.main-svg').select('.mapLabel').remove()
     })
 }
 
@@ -43,15 +51,16 @@ export function mapBackground (data, path, showMapLabel) {
 export function showMapLabel (d, path) {
   // TODO : Show the map label at the center of the neighborhood
   // by calculating the centroid for its polygon
-  d3.selectAll('#map-g')
+  d3.select('.main-svg')
     .append('text')
-    .attr('id', 'map-g')
-    .attr('x', d => path.centroid(d)[0])
-    .attr('y', d => path.centroid(d)[1])
+    .attr('class', 'mapLabel')
+    .attr('x', path.centroid(d)[0])
+    .attr('y', path.centroid(d)[1])
     .attr('text-anchor', 'middle')
     .attr('font-size', '12px')
     .attr('font-family', 'Open Sans Condensed')
     .attr('fill', '#000')
+    .attr('z-index', '-1')
     .text(d.properties.NOM)
 }
 
@@ -67,25 +76,27 @@ export function mapMarkers (data, color, panel) {
   // Their color corresponds to the type of site and their outline is white.
   // Their radius is 5 and goes up to 6 while hovered by the cursor.
   // When clicked, the panel is displayed.
-  d3.selectAll('#map-g')
+  d3.select('#marker-g').selectAll('.marker')
     .data(data.features)
     .enter()
     .append('circle')
+    .attr('class', 'marker')
     .attr('cx', d => d.geometry.coordinates[0])
     .attr('cy', d => d.geometry.coordinates[1])
     .attr('r', 5)
     .attr('fill', d => color(d.properties.TYPE_SITE_INTERVENTION))
     .attr('stroke', '#fff')
     .attr('stroke-width', 1)
-    .on('mouseover', () => {
+    .on('mouseover', function () {
       d3.select(this)
         .attr('r', 6)
     })
-    .on('mouseout', () => {
+    .on('mouseout', function () {
       d3.select(this)
         .attr('r', 5)
     })
-    .on('click', () => {
-      panel.style('visibility', 'visible')
+    .on('click', function (mouseEvent, d) {
+      panel.display(d, color)
+      d3.select('#panel').style('visibility', 'visible')
     })
 }

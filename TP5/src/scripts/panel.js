@@ -56,8 +56,9 @@ export function display (d, color) {
  */
 function setTitle (g, d, color) {
   // TODO : Set the title
-  g.append('span')
-    .text(d.properties.NOM_RUE)
+  console.log(d.properties)
+  g
+    .text(d.properties.NOM_PROJET)
     .style('color', color(d.properties.TYPE_SITE_INTERVENTION))
 }
 
@@ -68,8 +69,7 @@ function setTitle (g, d, color) {
  * @param {object} d The data to display
  */
 function setMode (g, d) {
-  g.append('span')
-    .text(d.properties.MODE)
+  g.text(d.properties.MODE_IMPLANTATION)
 }
 
 /**
