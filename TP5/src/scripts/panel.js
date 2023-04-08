@@ -55,8 +55,6 @@ export function display (d, color) {
  * @param {*} color The color scale to select the title's color
  */
 function setTitle (g, d, color) {
-  // TODO : Set the title
-  console.log(d.properties)
   g
     .text(d.properties.NOM_PROJET)
     .style('color', color(d.properties.TYPE_SITE_INTERVENTION))
@@ -80,7 +78,6 @@ function setMode (g, d) {
  * @param {object} d The data to display
  */
 function setTheme (g, d) {
-  // TODO : Append a list element representing the given theme
   g.append('li')
     .text(d)
 }

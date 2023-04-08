@@ -49,8 +49,6 @@ export function mapBackground (data, path, showMapLabel) {
  * @param {*} path The path used to draw the map elements
  */
 export function showMapLabel (d, path) {
-  // TODO : Show the map label at the center of the neighborhood
-  // by calculating the centroid for its polygon
   d3.select('.main-svg')
     .append('text')
     .attr('class', 'mapLabel')
@@ -72,10 +70,6 @@ export function showMapLabel (d, path) {
  * @param {*} panel The display panel, which should be dislayed when a circle is clicked
  */
 export function mapMarkers (data, color, panel) {
-  // TODO : Display the map markers.
-  // Their color corresponds to the type of site and their outline is white.
-  // Their radius is 5 and goes up to 6 while hovered by the cursor.
-  // When clicked, the panel is displayed.
   d3.select('#marker-g').selectAll('.marker')
     .data(data.features)
     .enter()

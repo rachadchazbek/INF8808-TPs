@@ -47,6 +47,5 @@ export function simplifyDisplayTitles (data) {
  * @returns {*} The GeoJson data with reversed coordinates.
  */
 export function reverseGeoJsonCoordinates (data) {
-  // Test if the coordinates are already reversed
   return rewind(data, { reverse: true })
 }
