@@ -29,9 +29,8 @@ export function mapBackground (data, path, showMapLabel) {
     .attr('class', 'region')
     .append('path')
     .attr('d', path)
-    .attr('fill', '#ccc')
-    .attr('stroke', '#fff')
-    .attr('stroke-width', 1)
+    .attr('fill', '#fff')
+    .attr('stroke', '#ccc')
     .on('mouseover', function (mouseEvent, d) {
       showMapLabel(d, path)
     })
